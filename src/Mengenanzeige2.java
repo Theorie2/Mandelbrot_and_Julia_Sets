@@ -47,7 +47,7 @@ public class Mengenanzeige2 {
             if (i >= ZahlenfolgenRechner.ANZAHL_ITERATIONEN) {
                 colorCache[i] = new int[]{255, 255, 255}; // White
             } else {
-                float hue = (float)(i * 0.01f % 1.0f);
+                float hue = (float) (i * 0.01f % 1.0f);
                 Color color = Color.getHSBColor(hue, 0.8f, 1.0f);
                 colorCache[i][0] = color.getRed();
                 colorCache[i][1] = color.getGreen();
@@ -88,9 +88,15 @@ public class Mengenanzeige2 {
             public void mousePressed(MouseEvent e) {
                 if (!isRendering) {
                     switch (e.getButton()) {
-                        case MouseEvent.BUTTON1: zoom(e.getX(), e.getY(), 5); break;
-                        case MouseEvent.BUTTON3: zoom(e.getX(), e.getY(), 0.2); break;
-                        case MouseEvent.BUTTON2: resetView(); break;
+                        case MouseEvent.BUTTON1:
+                            zoom(e.getX(), e.getY(), 5);
+                            break;
+                        case MouseEvent.BUTTON3:
+                            zoom(e.getX(), e.getY(), 0.2);
+                            break;
+                        case MouseEvent.BUTTON2:
+                            resetView();
+                            break;
                     }
                 }
             }
@@ -119,53 +125,64 @@ public class Mengenanzeige2 {
         final AtomicInteger activeChunks = new AtomicInteger(0);
         final int maxProcessors = Runtime.getRuntime().availableProcessors();
 
-      /*  Runnable renderTask = (Runnable) () -> {
-            while (activeChunks.get() >= maxProcessors) {
-                Thread.yield();
-            }
-
-            int startY = activeChunks.get();
-
-
-        }*/
-
-        if(k%1==0){
+        Runnable renderTask = () -> {
             for (int startY = 0; startY < height; startY += CHUNK_SIZE) {
                 final int currentStartY = startY;
-                while (activeChunks.get() >= Runtime.getRuntime().availableProcessors()) {
-                    Thread.yield();
-                }
 
                 executorService.execute(() -> {
-                    activeChunks.incrementAndGet();
                     try {
                         int endY = Math.min(currentStartY + CHUNK_SIZE, height);
-                        renderChunk(currentStartY, endY, width,height);
-                    } finally {
-                        activeChunks.decrementAndGet();
-                        latch.countDown();
-                    }
-                });
-            }} else{
-            for (int startY = 0; startY < height; startY += CHUNK_SIZE) {
-                final int currentStartY = startY;
-                while (activeChunks.get() >= Runtime.getRuntime().availableProcessors()) {
-                    Thread.yield();
-                }
 
-                executorService.execute(() -> {
-                    activeChunks.incrementAndGet();
-                    try {
-                        int endY = Math.min(currentStartY + CHUNK_SIZE, height);
-                        renderChunkF(currentStartY, endY, width,height);
+                        if (k % 1 == 0) {
+                            renderChunk(currentStartY, endY, width, height);
+                        } else {
+                            renderChunkF(currentStartY, endY, width, height);
+                        }
                     } finally {
-                        activeChunks.decrementAndGet();
                         latch.countDown();
                     }
                 });
             }
         }
 
+//
+//        if(k%1==0){
+//            for (int startY = 0; startY < height; startY += CHUNK_SIZE) {
+//                final int currentStartY = startY;
+//                while (activeChunks.get() >= Runtime.getRuntime().availableProcessors()) {
+//                    Thread.yield();
+//                }
+//
+//                executorService.execute(() -> {
+//                    activeChunks.incrementAndGet();
+//                    try {
+//                        int endY = Math.min(currentStartY + CHUNK_SIZE, height);
+//                        renderChunk(currentStartY, endY, width,height);
+//                    } finally {
+//                        activeChunks.decrementAndGet();
+//                        latch.countDown();
+//                    }
+//                });
+//            }} else{
+//            for (int startY = 0; startY < height; startY += CHUNK_SIZE) {
+//                final int currentStartY = startY;
+//                while (activeChunks.get() >= Runtime.getRuntime().availableProcessors()) {
+//                    Thread.yield();
+//                }
+//
+//                executorService.execute(() -> {
+//                    activeChunks.incrementAndGet();
+//                    try {
+//                        int endY = Math.min(currentStartY + CHUNK_SIZE, height);
+//                        renderChunkF(currentStartY, endY, width,height);
+//                    } finally {
+//                        activeChunks.decrementAndGet();
+//                        latch.countDown();
+//                    }
+//                });
+//            }
+//        }
+//
         new Thread(() -> {
             try {
                 latch.await();
@@ -198,6 +215,7 @@ public class Mengenanzeige2 {
             }
         }
     }
+
     private synchronized void renderChunkF(int startY, int endY, int width, int height) {
         double xScale = (maxX - minX) / (width - 1);
         double yScale = (maxY - minY) / (height - 1);
