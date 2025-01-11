@@ -57,9 +57,8 @@ public class Mengenanzeige2 {
 
         // Initialize point grid
         initializePoints();
-        executorService = Executors.newFixedThreadPool(
-                Math.max(1, Runtime.getRuntime().availableProcessors() / 2)
-        );
+        executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+
 
         zr = new ZahlenfolgenRechner(k, c);
 
@@ -113,6 +112,7 @@ public class Mengenanzeige2 {
     }
 
     private void display() {
+        System.out.println("Attempting to render with state " + isRendering);
         if (isRendering) return;
         isRendering = true;
 
@@ -143,7 +143,9 @@ public class Mengenanzeige2 {
                     }
                 });
             }
-        }
+        };
+
+        renderTask.run();
 
 //
 //        if(k%1==0){
