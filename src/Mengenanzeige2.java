@@ -112,7 +112,6 @@ public class Mengenanzeige2 {
     }
 
     private void display() {
-        System.out.println("Attempting to render with state " + isRendering);
         if (isRendering) return;
         isRendering = true;
 
