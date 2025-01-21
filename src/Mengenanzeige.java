@@ -187,7 +187,6 @@ public class Mengenanzeige {
 
     private void updateDisplay() {
         SwingUtilities.invokeLater(() -> {
-            w.clear();
             new Sprite(buffer, w.getWidth(), w.getHeight(), w);
         });
     }

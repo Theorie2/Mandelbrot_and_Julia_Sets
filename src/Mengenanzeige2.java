@@ -1,8 +1,12 @@
 import systemlib.Point;
 import systemlib.World;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.CountDownLatch;
@@ -18,6 +22,7 @@ public class Mengenanzeige2 {
     private final ExecutorService executorService;
     private final int[][] colorCache;
     private volatile boolean isRendering;
+    private volatile boolean isRendering2;
     private Point[][] points;
     private double k;
 
@@ -47,8 +52,7 @@ public class Mengenanzeige2 {
             if (i >= ZahlenfolgenRechner.ANZAHL_ITERATIONEN) {
                 colorCache[i] = new int[]{255, 255, 255}; // White
             } else {
-                float hue = (float) (i * 0.01f % 1.0f);
-                Color color = Color.getHSBColor(hue, 0.8f, 1.0f);
+                Color color = colorCalculation(i,1);
                 colorCache[i][0] = color.getRed();
                 colorCache[i][1] = color.getGreen();
                 colorCache[i][2] = color.getBlue();
@@ -119,80 +123,62 @@ public class Mengenanzeige2 {
 
         final int width = w.getWidth();
         final int height = w.getHeight();
-        final int numChunks = (height + CHUNK_SIZE - 1) / CHUNK_SIZE;
+
+        // Calculate optimal chunk size based on screen height and available processors
+        final int optimalChunkSize = Math.max(1, height / (Runtime.getRuntime().availableProcessors() * 2));
+        final int numChunks = (height + optimalChunkSize - 1) / optimalChunkSize;
+
         final CountDownLatch latch = new CountDownLatch(numChunks);
         final AtomicInteger activeChunks = new AtomicInteger(0);
-        final int maxProcessors = Runtime.getRuntime().availableProcessors();
 
-        Runnable renderTask = () -> {
-            for (int startY = 0; startY < height; startY += CHUNK_SIZE) {
-                final int currentStartY = startY;
+        // Create tasks for each chunk
+        for (int startY = 0; startY < height; startY += optimalChunkSize) {
+            final int currentStartY = startY;
+            final int endY = Math.min(currentStartY + optimalChunkSize, height);
 
-                executorService.execute(() -> {
-                    try {
-                        int endY = Math.min(currentStartY + CHUNK_SIZE, height);
+            // Submit task to executor service
+            executorService.execute(() -> {
+                try {
+                    // Record active chunks for monitoring
+                    activeChunks.incrementAndGet();
 
-                        if (k % 1 == 0) {
-                            renderChunk(currentStartY, endY, width, height);
-                        } else {
-                            renderChunkF(currentStartY, endY, width, height);
-                        }
-                    } finally {
-                        latch.countDown();
+                    // Choose rendering method based on k value
+                    if (k % 1 == 0) {
+                        renderChunk(currentStartY, endY, width, height);
+                    } else {
+                        renderChunkF(currentStartY, endY, width, height);
                     }
-                });
-            }
-        };
+                } catch (Exception e) {
+                    // Log any rendering errors
+                    System.err.println("Error rendering chunk: " + e.getMessage());
+                } finally {
+                    activeChunks.decrementAndGet();
+                    latch.countDown();
+                }
+            });
+        }
 
-        renderTask.run();
-
-//
-//        if(k%1==0){
-//            for (int startY = 0; startY < height; startY += CHUNK_SIZE) {
-//                final int currentStartY = startY;
-//                while (activeChunks.get() >= Runtime.getRuntime().availableProcessors()) {
-//                    Thread.yield();
-//                }
-//
-//                executorService.execute(() -> {
-//                    activeChunks.incrementAndGet();
-//                    try {
-//                        int endY = Math.min(currentStartY + CHUNK_SIZE, height);
-//                        renderChunk(currentStartY, endY, width,height);
-//                    } finally {
-//                        activeChunks.decrementAndGet();
-//                        latch.countDown();
-//                    }
-//                });
-//            }} else{
-//            for (int startY = 0; startY < height; startY += CHUNK_SIZE) {
-//                final int currentStartY = startY;
-//                while (activeChunks.get() >= Runtime.getRuntime().availableProcessors()) {
-//                    Thread.yield();
-//                }
-//
-//                executorService.execute(() -> {
-//                    activeChunks.incrementAndGet();
-//                    try {
-//                        int endY = Math.min(currentStartY + CHUNK_SIZE, height);
-//                        renderChunkF(currentStartY, endY, width,height);
-//                    } finally {
-//                        activeChunks.decrementAndGet();
-//                        latch.countDown();
-//                    }
-//                });
-//            }
-//        }
-//
-        new Thread(() -> {
+        // Create monitoring thread to track completion
+        Thread monitorThread = new Thread(() -> {
             try {
+                // Wait for all chunks to complete
                 latch.await();
+
+                // Reset rendering flag
                 isRendering = false;
+
+                // Optional: trigger any post-rendering operations here
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
+                isRendering = false;
             }
-        }).start();
+        });
+
+        // Set monitor thread as daemon to not prevent JVM shutdown
+        monitorThread.setDaemon(true);
+        monitorThread.start();
     }
+
 
     private synchronized void renderChunk(int startY, int endY, int width, int height) {
         double xScale = (maxX - minX) / (width - 1);
@@ -260,4 +246,144 @@ public class Mengenanzeige2 {
     public void close() {
         executorService.shutdown();
     }
-}
+    public Color colorCalculation(int i, int type){
+        switch (type){
+            case 1:
+                float hue = (float) (i * 0.01f % 1.0f);
+                return Color.getHSBColor(hue, 0.8f, 1.0f);
+            case 2: // Fire colors
+                float red = Math.min(1.0f, (i % 100) / 50.0f);
+                float green = Math.max(0.0f, Math.min(1.0f, (i % 100 - 25) / 50.0f));
+                float blue = Math.max(0.0f, Math.min(1.0f, (i % 100 - 50) / 50.0f));
+                return new Color(red, green, blue);
+
+            case 3: // Blue to white gradient
+                float intensity = Math.min(1.0f, (i % 100) / 100.0f);
+                return new Color(intensity, intensity, 1.0f);
+
+            case 4: // Psychedelic
+                float h = (float) (Math.sin(i * 0.1) * 0.5 + 0.5);
+                float s = (float) (Math.cos(i * 0.2) * 0.5 + 0.5);
+                float b = (float) (Math.sin(i * 0.3) * 0.5 + 0.5);
+                return Color.getHSBColor(h, s, b);
+
+            case 5: // Grayscale
+                float gray = (i % 256) / 255.0f;
+                return new Color(gray, gray, gray);
+
+            case 6: // Ocean depths
+                float depth = Math.min(1.0f, (i % 100) / 100.0f);
+                return new Color(0.0f, depth * 0.5f, depth);
+
+            case 7: // Golden ratio coloring
+                float goldenRatio = 0.618033988749895f;
+                float hue2 = (i * goldenRatio) % 1;
+                return Color.getHSBColor(hue2, 0.85f, 0.9f);
+
+            case 8: // Smooth normalized iteration count
+                double zn = Math.sqrt(i * 1.0 / 100);
+                float hue3 = (float) (zn % 1.0);
+                return Color.getHSBColor(hue3, 0.9f, 0.9f);
+            default :
+                return Color.BLACK;
+        }
+
+    }
+    /*public void generateImage(String imagePath, int pixelX, int pixelY){
+        BufferedImage image = new BufferedImage(pixelX,pixelY,1);
+        if (isRendering2) return;
+        isRendering2 = true;
+
+        final int width = pixelX;
+        final int height = pixelY;
+        final int numChunks = (height + CHUNK_SIZE - 1) / CHUNK_SIZE;
+        final CountDownLatch latch = new CountDownLatch(numChunks);
+        Runnable renderTask = () -> {
+            for (int startY = 0; startY < height; startY += CHUNK_SIZE) {
+                final int currentStartY = startY;
+
+                int finalStartY = startY;
+                int finalStartY1 = startY;
+                executorService.execute(() -> {
+                    try {
+                        int endY = Math.min(currentStartY + CHUNK_SIZE, height);
+
+                        if (k % 1 == 0) {
+                            double xScale = (maxX - minX) / (width - 1);
+                            double yScale = (maxY - minY) / (height - 1);
+                            Complex z = new Complex(0, 0);
+
+                            for (int y = finalStartY; y < endY; y++) {
+                                double imag = minY + (y * yScale);
+
+                                for (int x = 0; x < width; x++) {
+                                    double real = minX + (x * xScale);
+                                    z.setReal(real);
+                                    z.setImag(imag);
+
+                                    int iterations = julia ?
+                                            zr.zahlInJuliaMenge(z) :
+                                            zr.zahlInMandelbrotmenge(z);
+
+                                    int[] rgb = colorCache[iterations];
+                                    image.setRGB(x,y,new Color(rgb[0],rgb[1],rgb[2]).getRGB());
+                                }
+                            }
+                        } else {
+                            double xScale = (maxX - minX) / (width - 1);
+                            double yScale = (maxY - minY) / (height - 1);
+                            Complex z = new Complex(0, 0);
+
+                            for (int y = finalStartY1; y < endY; y++) {
+                                double imag = minY + (y * yScale);
+
+                                for (int x = 0; x < width; x++) {
+                                    double real = minX + (x * xScale);
+                                    z.setReal(real);
+                                    z.setImag(imag);
+
+                                    int iterations = julia ?
+                                            zr.zahlInJuliaMengeF(z) :
+                                            zr.zahlInMandelbrotmengeF(z);
+                                    int[] rgb = colorCache[iterations];
+                                    image.setRGB(x,y,new Color(rgb[0],rgb[1],rgb[2]).getRGB());
+                                }
+                            }
+                        }
+                    } finally {
+                        latch.countDown();
+                    }
+                });
+            }
+        };
+        renderTask.run();
+        new Thread(() -> {
+            try {
+                latch.await();
+                isRendering2 = false;
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }).start();
+        try {
+            latch.await();
+            try {
+                boolean gespeichert = ImageIO.write(image, "png", new File(imagePath));
+
+                if (gespeichert) {
+                    System.out.println("Das Bild wurde erfolgreich gespeichert unter: " + imagePath);
+                } else {
+                    System.out.println("Das Bild konnte nicht gespeichert werden.");
+                }
+            } catch (IOException e) {
+                System.err.println("Fehler beim Speichern des Bildes: " + e.getMessage());
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+    }*/
+    }
+
+
+

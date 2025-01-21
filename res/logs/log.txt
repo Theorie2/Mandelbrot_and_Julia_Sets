@@ -3573,3 +3573,248 @@
 [00:08:15.053218900] Loaded textures correctly 
 [00:08:15.247939100] Started Draw-Ticker! 
 [00:08:15.251938300] Started Game-Ticker! 
+ 
+[00:15:47.464964300] Loaded old Log-File 
+[00:15:47.767337800] Loaded textures correctly 
+[00:15:47.951860300] Started Draw-Ticker! 
+[00:15:47.955860800] Started Game-Ticker! 
+ 
+[00:15:59.232028900] Loaded old Log-File 
+[00:15:59.542849800] Loaded textures correctly 
+[00:15:59.817470200] Started Draw-Ticker! 
+[00:15:59.822990700] Started Game-Ticker! 
+ 
+[00:16:10.976412600] Loaded old Log-File 
+[00:16:11.274182600] Loaded textures correctly 
+[00:16:11.482694500] Started Draw-Ticker! 
+[00:16:11.489208200] Started Game-Ticker! 
+ 
+[00:19:05.362874500] Loaded old Log-File 
+[00:19:05.670708300] Loaded textures correctly 
+[00:19:05.835574300] Started Draw-Ticker! 
+[00:19:05.840088400] Started Game-Ticker! 
+ 
+[00:35:43.500328100] Loaded old Log-File 
+[00:35:43.790483400] Loaded textures correctly 
+[00:35:44.063345600] Started Draw-Ticker! 
+[00:35:44.068350300] Started Game-Ticker! 
+ 
+[00:36:20.773484900] Loaded old Log-File 
+[00:36:21.075955200] Loaded textures correctly 
+[00:36:21.243030200] Started Draw-Ticker! 
+[00:36:21.247032100] Started Game-Ticker! 
+ 
+[00:36:32.475398500] Loaded old Log-File 
+[00:36:32.755013] Loaded textures correctly 
+[00:36:32.912052900] Started Draw-Ticker! 
+[00:36:32.916566600] Started Game-Ticker! 
+ 
+[00:37:39.810959400] Loaded old Log-File 
+[00:37:40.106552300] Loaded textures correctly 
+[00:37:40.176902500] Started Draw-Ticker! 
+[00:37:40.183902900] Started Game-Ticker! 
+ 
+[00:38:31.669122800] Loaded old Log-File 
+[00:38:31.946749] Loaded textures correctly 
+[00:38:32.011755600] Started Draw-Ticker! 
+[00:38:32.018755200] Started Game-Ticker! 
+ 
+[20:15:16.385652200] Loaded old Log-File 
+[20:15:16.747654800] Loaded textures correctly 
+[20:15:17.047650500] Started Draw-Ticker! 
+[20:15:17.054651700] Started Game-Ticker! 
+ 
+[20:42:51.249269400] Loaded old Log-File 
+[20:42:51.797269400] Loaded textures correctly 
+[20:42:51.997270100] Started Draw-Ticker! 
+[20:42:52.004268800] Started Game-Ticker! 
+ 
+[20:48:50.406643900] Loaded old Log-File 
+[20:48:50.736845700] Loaded textures correctly 
+[20:48:50.910047300] Started Draw-Ticker! 
+[20:48:50.915564500] Started Game-Ticker! 
+ 
+[20:56:31.885917700] Loaded old Log-File 
+[20:56:32.172516400] Loaded textures correctly 
+[20:56:32.344176] Started Draw-Ticker! 
+[20:56:32.350739900] Started Game-Ticker! 
+ 
+[20:56:43.002219700] Loaded old Log-File 
+[20:56:43.312503600] Loaded textures correctly 
+[20:56:43.478372100] Started Draw-Ticker! 
+[20:56:43.483393600] Started Game-Ticker! 
+ 
+[20:58:17.413367900] Loaded old Log-File 
+[20:58:17.709574900] Loaded textures correctly 
+[20:58:17.875974200] Started Draw-Ticker! 
+[20:58:17.882488] Started Game-Ticker! 
+ 
+[20:59:18.652184200] Loaded old Log-File 
+[20:59:18.976510400] Loaded textures correctly 
+[20:59:19.183532100] Started Draw-Ticker! 
+[20:59:19.191842500] Started Game-Ticker! 
+ 
+[20:59:30.203747900] Loaded old Log-File 
+[20:59:30.496657600] Loaded textures correctly 
+[20:59:30.644268] Started Draw-Ticker! 
+[20:59:30.649320900] Started Game-Ticker! 
+ 
+[21:04:27.392716800] Loaded old Log-File 
+[21:04:27.696597600] Loaded textures correctly 
+[21:04:27.865950300] Started Draw-Ticker! 
+[21:04:27.870950900] Started Game-Ticker! 
+ 
+[21:06:50.725817] Loaded old Log-File 
+[21:06:51.019060] Loaded textures correctly 
+[21:06:51.179602200] Started Draw-Ticker! 
+[21:06:51.185109600] Started Game-Ticker! 
+ 
+[21:11:15.644782900] Loaded old Log-File 
+[21:11:15.938133100] Loaded textures correctly 
+[21:11:16.114648500] Started Draw-Ticker! 
+[21:11:16.121900800] Started Game-Ticker! 
+ 
+[21:12:50.878131300] Loaded old Log-File 
+[21:12:51.201398100] Loaded textures correctly 
+[21:12:51.376281100] Started Draw-Ticker! 
+[21:12:51.381281900] Started Game-Ticker! 
+ 
+[21:12:56.336613300] Loaded old Log-File 
+[21:12:56.638522800] Loaded textures correctly 
+[21:12:56.803747500] Started Draw-Ticker! 
+[21:12:56.810753200] Started Game-Ticker! 
+ 
+[21:13:31.477014200] Loaded old Log-File 
+[21:13:31.764599500] Loaded textures correctly 
+[21:13:31.918842300] Started Draw-Ticker! 
+[21:13:31.925004200] Started Game-Ticker! 
+ 
+[21:13:44.821223900] Loaded old Log-File 
+[21:13:45.122079900] Loaded textures correctly 
+[21:13:45.294188300] Started Draw-Ticker! 
+[21:13:45.301185400] Started Game-Ticker! 
+ 
+[18:17:32.116901200] Loaded old Log-File 
+[18:17:32.519355600] Loaded textures correctly 
+[18:17:32.746811300] Started Draw-Ticker! 
+[18:17:32.754824900] Started Game-Ticker! 
+ 
+[18:17:58.255535500] Loaded old Log-File 
+[18:17:58.539136100] Loaded textures correctly 
+[18:17:58.812021300] Started Draw-Ticker! 
+[18:17:58.817537800] Started Game-Ticker! 
+ 
+[18:19:12.243272900] Loaded old Log-File 
+[18:19:12.522353800] Loaded textures correctly 
+[18:19:12.707873500] Started Draw-Ticker! 
+[18:19:12.714022300] Started Game-Ticker! 
+ 
+[18:19:48.525725200] Loaded old Log-File 
+[18:19:48.829164600] Loaded textures correctly 
+[18:19:48.984298900] Started Draw-Ticker! 
+[18:19:48.989816300] Started Game-Ticker! 
+ 
+[18:20:19.886025] Loaded old Log-File 
+[18:20:20.218924] Loaded textures correctly 
+[18:20:20.392077100] Started Draw-Ticker! 
+[18:20:20.397581600] Started Game-Ticker! 
+ 
+[18:20:44.215540600] Loaded old Log-File 
+[18:20:44.503394900] Loaded textures correctly 
+[18:20:44.769550200] Started Draw-Ticker! 
+[18:20:44.774550200] Started Game-Ticker! 
+ 
+[18:21:41.714198200] Loaded old Log-File 
+[18:21:41.993284800] Loaded textures correctly 
+[18:21:42.158717100] Started Draw-Ticker! 
+[18:21:42.163231300] Started Game-Ticker! 
+ 
+[18:22:43.570074300] Loaded old Log-File 
+[18:22:43.865142] Loaded textures correctly 
+[18:22:44.031953200] Started Draw-Ticker! 
+[18:22:44.036953700] Started Game-Ticker! 
+ 
+[18:23:19.114757600] Loaded old Log-File 
+[18:23:19.406740400] Loaded textures correctly 
+[18:23:19.576801700] Started Draw-Ticker! 
+[18:23:19.582808500] Started Game-Ticker! 
+ 
+[18:23:56.254500100] Loaded old Log-File 
+[18:23:56.550634100] Loaded textures correctly 
+[18:23:56.712084600] Started Draw-Ticker! 
+[18:23:56.718607300] Started Game-Ticker! 
+ 
+[18:25:09.345437900] Loaded old Log-File 
+[18:25:09.632558600] Loaded textures correctly 
+[18:25:09.801589700] Started Draw-Ticker! 
+[18:25:09.807594800] Started Game-Ticker! 
+ 
+[18:25:26.214395100] Loaded old Log-File 
+[18:25:26.500020300] Loaded textures correctly 
+[18:25:26.666261500] Started Draw-Ticker! 
+[18:25:26.671312200] Started Game-Ticker! 
+ 
+[18:26:15.587476900] Loaded old Log-File 
+[18:26:15.867308200] Loaded textures correctly 
+[18:26:16.031225100] Started Draw-Ticker! 
+[18:26:16.036224200] Started Game-Ticker! 
+ 
+[18:26:42.352444100] Loaded old Log-File 
+[18:26:42.639753600] Loaded textures correctly 
+[18:26:42.794559700] Started Draw-Ticker! 
+[18:26:42.800082400] Started Game-Ticker! 
+ 
+[18:27:12.259929] Loaded old Log-File 
+[18:27:12.548075700] Loaded textures correctly 
+[18:27:12.706733900] Started Draw-Ticker! 
+[18:27:12.712805900] Started Game-Ticker! 
+ 
+[18:28:02.907001] Loaded old Log-File 
+[18:28:03.187490500] Loaded textures correctly 
+[18:28:03.337725900] Started Draw-Ticker! 
+[18:28:03.343233600] Started Game-Ticker! 
+ 
+[18:29:33.153939600] Loaded old Log-File 
+[18:29:33.438604100] Loaded textures correctly 
+[18:29:33.590566500] Started Draw-Ticker! 
+[18:29:33.597084300] Started Game-Ticker! 
+ 
+[18:29:59.148970300] Loaded old Log-File 
+[18:29:59.426603500] Loaded textures correctly 
+[18:29:59.591466300] Started Draw-Ticker! 
+[18:29:59.596978900] Started Game-Ticker! 
+ 
+[18:30:44.433109600] Loaded old Log-File 
+[18:30:44.711844600] Loaded textures correctly 
+[18:30:44.882367700] Started Draw-Ticker! 
+[18:30:44.887367900] Started Game-Ticker! 
+ 
+[18:31:10.374246800] Loaded old Log-File 
+[18:31:10.658264600] Loaded textures correctly 
+[18:31:10.821649900] Started Draw-Ticker! 
+[18:31:10.825651200] Started Game-Ticker! 
+ 
+[19:42:01.717767400] Loaded old Log-File 
+[19:42:02.073998100] Loaded textures correctly 
+[19:42:02.246375700] Started Draw-Ticker! 
+[19:42:02.251892800] Started Game-Ticker! 
+ 
+[19:44:15.146175400] Loaded old Log-File 
+[19:44:15.429823800] Loaded textures correctly 
+[19:44:15.601905300] Started Draw-Ticker! 
+[19:44:15.606419100] Started Game-Ticker! 
+ 
+[17:45:40.248800300] Loaded old Log-File 
+[17:45:40.821705] Loaded textures correctly 
+[17:45:41.032650100] Started Draw-Ticker! 
+[17:45:41.041167] Started Game-Ticker! 
+ 
+[17:45:52.719762800] Loaded old Log-File 
+[17:45:53.046088200] Loaded textures correctly 
+[17:45:53.303144100] Started Draw-Ticker! 
+[17:45:53.311656400] Started Game-Ticker! 
+ 
+[17:46:00.737652400] Loaded old Log-File 
+[17:46:01.147363600] Loaded textures correctly 
+[17:46:01.487737500] Started Draw-Ticker! 
+[17:46:01.494255200] Started Game-Ticker! 
