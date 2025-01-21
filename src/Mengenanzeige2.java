@@ -52,7 +52,7 @@ public class Mengenanzeige2 {
             if (i >= ZahlenfolgenRechner.ANZAHL_ITERATIONEN) {
                 colorCache[i] = new int[]{255, 255, 255}; // White
             } else {
-                Color color = colorCalculation(i,1);
+                Color color = colorCalculation(i,8);
                 colorCache[i][0] = color.getRed();
                 colorCache[i][1] = color.getGreen();
                 colorCache[i][2] = color.getBlue();
@@ -124,8 +124,7 @@ public class Mengenanzeige2 {
         final int width = w.getWidth();
         final int height = w.getHeight();
 
-        // Calculate optimal chunk size based on screen height and available processors
-        final int optimalChunkSize = Math.max(1, height / (Runtime.getRuntime().availableProcessors() * 2));
+        final int optimalChunkSize = Math.max(1, height / (Runtime.getRuntime().availableProcessors() *2));
         final int numChunks = (height + optimalChunkSize - 1) / optimalChunkSize;
 
         final CountDownLatch latch = new CountDownLatch(numChunks);
@@ -139,17 +138,13 @@ public class Mengenanzeige2 {
             // Submit task to executor service
             executorService.execute(() -> {
                 try {
-                    // Record active chunks for monitoring
                     activeChunks.incrementAndGet();
-
-                    // Choose rendering method based on k value
                     if (k % 1 == 0) {
                         renderChunk(currentStartY, endY, width, height);
                     } else {
                         renderChunkF(currentStartY, endY, width, height);
                     }
                 } catch (Exception e) {
-                    // Log any rendering errors
                     System.err.println("Error rendering chunk: " + e.getMessage());
                 } finally {
                     activeChunks.decrementAndGet();
@@ -166,15 +161,12 @@ public class Mengenanzeige2 {
 
                 // Reset rendering flag
                 isRendering = false;
-
-                // Optional: trigger any post-rendering operations here
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 isRendering = false;
             }
         });
 
-        // Set monitor thread as daemon to not prevent JVM shutdown
         monitorThread.setDaemon(true);
         monitorThread.start();
     }
