@@ -37,7 +37,7 @@ public class Point extends Shape{
         return getParentGroup() != null;//Das ist richtig so!!!
     }
 
-    public void setColor(Color color){
+    public synchronized void setColor(Color color){
         this.color=color;
     }
 

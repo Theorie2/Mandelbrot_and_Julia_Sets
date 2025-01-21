@@ -180,7 +180,7 @@ public class Mengenanzeige2 {
     }
 
 
-    private synchronized void renderChunk(int startY, int endY, int width, int height) {
+    private void renderChunk(int startY, int endY, int width, int height) {
         double xScale = (maxX - minX) / (width - 1);
         double yScale = (maxY - minY) / (height - 1);
         Complex z = new Complex(0, 0);
@@ -188,22 +188,25 @@ public class Mengenanzeige2 {
         for (int y = startY; y < endY; y++) {
             double imag = minY + (y * yScale);
 
-            for (int x = 0; x < width; x++) {
-                double real = minX + (x * xScale);
-                z.setReal(real);
-                z.setImag(imag);
 
-                int iterations = julia ?
-                        zr.zahlInJuliaMenge(z) :
-                        zr.zahlInMandelbrotmenge(z);
+                for (int x = 0; x < width; x++) {
+            synchronized(points) {
+                    double real = minX + (x * xScale);
+                    z.setReal(real);
+                    z.setImag(imag);
 
-                int[] rgb = colorCache[iterations];
-                points[y][x].setColor(new Color(rgb[0], rgb[1], rgb[2]));
+                    int iterations = julia ?
+                            zr.zahlInJuliaMenge(z) :
+                            zr.zahlInMandelbrotmenge(z);
+
+                    int[] rgb = colorCache[iterations];
+                    points[y][x].setColor(new Color(rgb[0], rgb[1], rgb[2]));
+                }
             }
         }
     }
 
-    private synchronized void renderChunkF(int startY, int endY, int width, int height) {
+    private void renderChunkF(int startY, int endY, int width, int height) {
         double xScale = (maxX - minX) / (width - 1);
         double yScale = (maxY - minY) / (height - 1);
         Complex z = new Complex(0, 0);
@@ -211,17 +214,20 @@ public class Mengenanzeige2 {
         for (int y = startY; y < endY; y++) {
             double imag = minY + (y * yScale);
 
-            for (int x = 0; x < width; x++) {
-                double real = minX + (x * xScale);
-                z.setReal(real);
-                z.setImag(imag);
+            // Synchronize on each row to prevent line artifacts
+                for (int x = 0; x < width; x++) {
+            synchronized(points) {
+                    double real = minX + (x * xScale);
+                    z.setReal(real);
+                    z.setImag(imag);
 
-                int iterations = julia ?
-                        zr.zahlInJuliaMengeF(z) :
-                        zr.zahlInMandelbrotmengeF(z);
+                    int iterations = julia ?
+                            zr.zahlInJuliaMengeF(z) :
+                            zr.zahlInMandelbrotmengeF(z);
 
-                int[] rgb = colorCache[iterations];
-                points[y][x].setColor(new Color(rgb[0], rgb[1], rgb[2]));
+                    int[] rgb = colorCache[iterations];
+                    points[y][x].setColor(new Color(rgb[0], rgb[1], rgb[2]));
+                }
             }
         }
     }
